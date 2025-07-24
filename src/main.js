@@ -1,19 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
   const timeUnit = 16;
   let road = ["C", "C", "C", ".", "G", ".", ".", ".", "R", ".", ".", "."];
-  let position = 2;
-  let stepsMoved = 0;
-  let stopTheCar = false;
-  let cars = [];
-
-   for (let i = 0; i < road.length; i++) {
-    if (road[i] === "C") {
-      cars.push({ initial: i, current: i });
-    }
-  }
 
   for (let i = 0; i < timeUnit; i++) {
-   if (i === 5) {
+    if (i === 5) {
       if (road[4] === "G") road[4] = "O";
       if (road[8] === "R") road[8] = "O";
     }
@@ -38,21 +28,29 @@ document.addEventListener("DOMContentLoaded", () => {
       if (road[8] === "O") road[8] = "G";
     }
 
-    const nextPos = position + i;
+    let newRoad = [...road];
 
-    if (stepsMoved < 5 && !stopTheCar) {
-      if (
-        (road[nextPos] === "." || road[nextPos] === "G") &&
-        road[nextPos] !== "C"
-      ) {
-        road[nextPos] = "C";
-        road[position - 1] = ".";
-        stepsMoved++;
-      } else if (road[nextPos] === "R") {
-        stopTheCar = true;
+    road.forEach((street, index) => {
+      if (street === "C") {
+        const currentPosition = index;
+        const nextPosition = currentPosition + 1;
+
+        if (nextPosition < road.length) {
+          const nextStreet = road[nextPosition];
+
+          if (nextStreet === "." || nextStreet === "G") {
+            newRoad[nextPosition] = "C";
+            newRoad[currentPosition] = ".";
+            console.log(`Moviendo C de ${currentPosition} a ${nextPosition}`);
+          } else {
+            console.log(`C en ${currentPosition} no puede avanzar. Siguiente: ${nextStreet}`);
+          }
+        }
       }
-    }
+    });
 
-    console.log(road);
+    road = newRoad;
+
+    console.log(road)
   }
 });
