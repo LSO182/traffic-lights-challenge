@@ -16,7 +16,7 @@ Desafio traffic lights de codewars "https://www.codewars.com/kata/5d230e119dd986
    npm install
    npm run dev
 ## Requisitos
-- Los resultados del desafio se encuentran en la consola del navegador (presionar f12 o click derecho en pantalla y seleccionar inspeccionar)
+- Puedes ver tambien los resultados del desafio en la consola del navegador (presionar f12 o click derecho en pantalla y seleccionar inspeccionar)
 - Node.js v20 (se recomienda usar nvm para gestionar versiones)
 
 Para cambiar a la versión correcta:

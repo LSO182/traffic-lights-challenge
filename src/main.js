@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // actualizo el estado
     road = newRoad;
     underCar = newUnderCar;
-
+    document.getElementById("app").innerHTML += road.join(" ") + "\n";
     console.log(road);
   }
 });
