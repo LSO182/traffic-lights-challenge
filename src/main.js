@@ -1,9 +1,16 @@
 document.addEventListener("DOMContentLoaded", () => {
   const timeUnit = 16;
   let road = ["C", "C", "C", ".", "G", ".", ".", ".", "R", ".", ".", "."];
-  let position = 3;
+  let position = 2;
   let stepsMoved = 0;
   let stopTheCar = false;
+  let cars = [];
+
+  for (let i = 0; i < road.length; i++) {
+    if (road[i] === "C") {
+      cars.push(i);
+    }
+  }
 
   for (let i = 0; i < timeUnit; i++) {
     if (i === 5) {
@@ -26,32 +33,47 @@ document.addEventListener("DOMContentLoaded", () => {
       road[8] = road[8] === "G" ? "R" : "G";
     }
 
-    if (i < 5 && stepsMoved < 4 && !stopTheCar) {
+    const nextPos = position + i;
+
+    if (i <= 5 && stepsMoved < 5 && !stopTheCar) {
       if (
-        road[position + i] === "." ||
-        road[position + i] === "G" ||
-        road[position - 1] === "R"
+        (road[nextPos] === "." || road[nextPos] === "G") &&
+        road[nextPos] !== "C"
       ) {
-        road[position + i] = "C";
+        road[nextPos] = "C";
         road[position - 1] = ".";
-      } else if (road[position + i] === "R") {
-        road[position - 1];
+        stepsMoved++;
+      } else if (road[nextPos] === "R") {
         stopTheCar = true;
       }
     }
 
-    if (i > 6 && stepsMoved < 4 && !stopTheCar) if (
-        road[position + i] === "." ||
-        road[position + i] === "G" ||
-        road[position - 1] === "R"
+    if (i > 6 && stepsMoved < 5 && !stopTheCar) {
+      if (
+        (road[nextPos] === "." || road[nextPos] === "G") &&
+        road[nextPos] !== "C"
       ) {
-        road[position + i] = "C";
+        road[nextPos] = "C";
         road[position - 1] = ".";
-      } else if (road[position + i] === "R") {
-        road[position - 1];
+        stepsMoved++;
+      } else if (road[nextPos] === "R") {
         stopTheCar = true;
       }
+    }
 
-    console.log(`Iteración ${i + 1}:`, road);
+    if (i > 10 && stepsMoved < 5 && !stopTheCar) {
+      if (
+        (road[nextPos] === "." || road[nextPos] === "G") &&
+        road[nextPos] !== "C"
+      ) {
+        road[nextPos] = "C";
+        road[position - 1] = ".";
+        stepsMoved++;
+      } else if (road[nextPos] === "R") {
+        stopTheCar = true;
+      }
+    }
+
+    console.log(`Ruta ${i + 1}:`, road);
   }
 });
